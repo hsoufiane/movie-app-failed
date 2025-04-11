@@ -1,0 +1,80 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+yarn-debug.log*
+yarn-error.log*
+.yarn-integrity
+
+# testing
+/coverage
+/.nyc_output
+/cypress/videos
+/cypress/screenshots
+/cypress/downloads
+
+# next.js
+/.next/
+/out/
+.next-env.d.ts
+
+# production
+/build
+/dist
+
+# cache
+/.cache/
+
+# misc
+.DS_Store
+*.pem
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# debug
+npm-debug.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Storybook
+/storybook-static
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
