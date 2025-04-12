@@ -1,0 +1,42 @@
+name: Evaluate Candidate Submission with Ollama
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, master]
+
+jobs:
+  evaluate-candidate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install Ollama
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          echo "Starting Ollama server in background..."
+          nohup ollama serve > /dev/null 2>&1 &
+          sleep 10
+
+      - name: Pull LLM model
+        run: ollama pull  mistral
+
+      - name: Prepare and Analyze Code
+        run: |
+          echo "Reading test description..."
+          TEST_DESCRIPTION=$(cat test_description.txt)
+
+          echo "Collecting candidate code..."
+          CODE=""
+          for file in $(find src -type f ! -iname "*.png" ! -iname "*.jpg" ! -iname "*.ico" ! -iname "*.svg"); do
+            CODE+="\n\n--- FILE: $file ---\n"
+            CODE+="$(cat "$file")"
+          done
+          
+
+          echo "Building prompt..."
+          PROMPT="You are a senior developer evaluating a technical test submission.\n\nHere is the test the candidate was asked to complete:\n\n$TEST_DESCRIPTION\n\nHere is the candidate's submitted code:\n$CODE\n\nPlease carefully review the code and provide the following:\n1. An estimate (in percentage) of how much of the overall test was completed.\n2. A list of tasks or requirements that were successfully completed.\n3. A concise summary of the candidate s implementation, including structure, design choices, and functionality.\n4. A list of missing parts, incomplete features, or areas that could be improved including code quality, best practices, performance, readability, and architecture.\n"
+
+          echo -e "$PROMPT" | ollama run mistral
