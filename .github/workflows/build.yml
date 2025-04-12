@@ -21,7 +21,7 @@ jobs:
           sleep 10
 
       - name: Pull LLM model
-        run: ollama pull  codellama
+        run: ollama pull  deepseek-coder
 
       - name: Prepare and Analyze Code
         run: |
@@ -39,4 +39,4 @@ jobs:
           echo "Building prompt..."
           PROMPT="You are a senior developer evaluating a technical test submission.\n\nHere is the test the candidate was asked to complete:\n\n$TEST_DESCRIPTION\n\nHere is the candidate's submitted code:\n$CODE\n\nPlease carefully review the code and provide the following:\n1. An estimate (in percentage) of how much of the overall test was completed.\n2. A list of tasks or requirements that were successfully completed.\n3. A concise summary of the candidate s implementation, including structure, design choices, and functionality.\n4. A list of missing parts, incomplete features, or areas that could be improved including code quality, best practices, performance, readability, and architecture.\n"
 
-          echo -e "$PROMPT" | ollama run codellama
+          echo -e "$PROMPT" | ollama run deepseek-coder
