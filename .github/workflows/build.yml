@@ -21,7 +21,7 @@ jobs:
           sleep 10
 
       - name: Pull LLM model
-        run: ollama pull  deepseek-coder
+        run: ollama pull deepseek-coder
 
       - name: Prepare and Analyze Code
         run: |
@@ -34,9 +34,39 @@ jobs:
             CODE+="\n\n--- FILE: $file ---\n"
             CODE+="$(cat "$file")"
           done
-          
 
           echo "Building prompt..."
-          PROMPT="You are a senior developer evaluating a technical test submission.\n\nHere is the test the candidate was asked to complete:\n\n$TEST_DESCRIPTION\n\nHere is the candidate's submitted code:\n$CODE\n\nPlease carefully review the code and provide the following:\n1. An estimate (in percentage) of how much of the overall test was completed.\n2. A list of tasks or requirements that were successfully completed.\n3. A concise summary of the candidate s implementation, including structure, design choices, and functionality.\n4. A list of missing parts, incomplete features, or areas that could be improved including code quality, best practices, performance, readability, and architecture.\n"
+          PROMPT="You are a senior developer evaluating a technical test submission.
+
+Here is the test the candidate was asked to complete:
+
+$TEST_DESCRIPTION
+
+Here is the candidate's submitted code:
+
+$CODE
+
+Please carefully review the code and provide your evaluation using the following structure.
+
+### Expected Response Format:
+
+**1. Completion Estimate (%):**
+Provide an approximate percentage of how much of the test is complete.
+
+**2. Successfully Completed Tasks:**
+- Task 1
+- Task 2
+...
+
+**3. Summary of the Candidate's Implementation:**
+Write a concise paragraph summarizing the codebase structure, key design decisions, and how the logic works.
+
+**4. Areas of Improvement or Missing Parts:**
+- Missing Feature: ...
+- Code Quality: ...
+- Performance: ...
+- Security: ...
+- Best Practices: ...
+"
 
           echo -e "$PROMPT" | ollama run deepseek-coder
