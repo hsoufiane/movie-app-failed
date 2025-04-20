@@ -36,37 +36,37 @@ jobs:
           done
 
           echo "Building prompt..."
-          PROMPT="You are a senior developer evaluating a technical test submission.
+          PROMPT="You are a senior developer evaluating a technical test submission.\n
 
-Here is the test the candidate was asked to complete:
+                  Here is the test the candidate was asked to complete:
 
-$TEST_DESCRIPTION
+                  $TEST_DESCRIPTION
 
-Here is the candidate's submitted code:
+                  Here is the candidate's submitted code:
 
-$CODE
+                  $CODE\n
 
-Please carefully review the code and provide your evaluation using the following structure.
+                  Please carefully review the code and provide your evaluation using the following structure.\n
 
-### Expected Response Format:
+                  ### Expected Response Format:
 
-**1. Completion Estimate (%):**
-Provide an approximate percentage of how much of the test is complete.
+                  **1. Completion Estimate (%):**
+                  Provide an approximate percentage of how much of the test is complete.
 
-**2. Successfully Completed Tasks:**
-- Task 1
-- Task 2
-...
+                  **2. Successfully Completed Tasks:**
+                  - Task 1
+                  - Task 2
+                  ...
 
-**3. Summary of the Candidate's Implementation:**
-Write a concise paragraph summarizing the codebase structure, key design decisions, and how the logic works.
+                  **3. Summary of the Candidate's Implementation:**
+                  Write a concise paragraph summarizing the codebase structure, key design decisions, and how the logic works.
 
-**4. Areas of Improvement or Missing Parts:**
-- Missing Feature: ...
-- Code Quality: ...
-- Performance: ...
-- Security: ...
-- Best Practices: ...
-"
+                  **4. Areas of Improvement or Missing Parts:**
+                  - Missing Feature: ...
+                  - Code Quality: ...
+                  - Performance: ...
+                  - Security: ...
+                  - Best Practices: ...
+                  "
 
           echo -e "$PROMPT" | ollama run deepseek-coder
