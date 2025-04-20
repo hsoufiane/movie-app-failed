@@ -21,7 +21,7 @@ jobs:
           sleep 10
 
       - name: Pull LLM model
-        run: ollama pull deepseek-coder
+        run: ollama pull codellama
 
       - name: Prepare and Analyze Code
         run: |
@@ -69,4 +69,4 @@ jobs:
                   - Best Practices: ...
                   "
 
-          echo -e "$PROMPT" | ollama run deepseek-coder
+          echo -e "$PROMPT" | ollama run codellama
